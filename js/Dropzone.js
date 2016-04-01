@@ -1,49 +1,44 @@
-Dropzone.options.uploadWidget = {
+ Dropzone.options.myAwesomeDropzone = { 
+  //paramName: "file",
   autoProcessQueue: false,
-  paramName: 'file',
-  maxFilesize: 2, // MB
+  uploadMultiple: true,
+  parallelUploads: 1,
   maxFiles: 1,
-  dictDefaultMessage: 'Arrastra una factura',
-  acceptedFiles: 'application/xml',
-  init: function() {
-    /*this.on('addedfile', function( file, resp ){
-      console.log( file );
-      console.log( resp );
-    });
-*/
-var submitButton = document.querySelector("#submit")
-    myDropzone = this; 
-    submitButton.addEventListener("click", function(e){
-    	myDropzone.processQueue();
-    });
+  maxFilesize: 10, //MB
+  addRemoveLinks: true,
+  previewsContainer: ".dropzone-previews",
+  dictRemoveFile: "Eliminar",
+  dictCancelUpload: "Cancel",
+  dictDefaultMessage: "Arrastra la factura aqui",
+  dictFileTooBig: "Archivo demasiado grande: 10 MB",
+  dictMaxFilesExceeded: "Solo se puede enviar una factura",
+  //acceptedFiles: ".xml",
 
-    this.on("addedfile", function(file, resp ) {
-    	console.log( file );
-    	console.log( resp );
-      var removeButton = Dropzone.createElement("<button>Remove file</button>");
-      
-      removeButton.addEventListener("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        myDropzone.removeFile(file);
-      });
-      file.previewElement.appendChild(removeButton);
-
+    init: function() {
+    var myDropzone = this;
+    
+    $("#submit-all").click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
     });
 
-    this.on("complete", function(file) {
-    	
+    myDropzone.on("addedfile", function (file) {
+      console.log(file)
+    });
+    
+    myDropzone.on('sending', function(file, xhr, formData) {
+      console.log(file, xhr, formData)
     });
 
-    this.on("success", 
-    	myDropzone.processQueue.bind(myDropzone)
-    );
-
-    var cleanButton=document.querySelector("button#clear")
-    cleanButton.addEventListener("click", function(e) {
-      myDropzone.removeAllFiles();
+    myDropzone.on("complete", function (file) {
+      if (myDropzone.getUploadingFiles().length === 0 && myDropzone.getQueuedFiles().length === 0) {
+        //window.location.reload();
+        myDropzone.removeFile(file)
+        console.log(file)
+      }
     });
 
-  }
-  
-};
+   }
+
+ }
