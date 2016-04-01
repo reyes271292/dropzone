@@ -7,21 +7,23 @@
 	<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 	<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 	<script type="text/javascript" src="js/Dropzone.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
 </head>
 <body>
 	<p>
 	  Ejemplo Dropzone
 	</p>
-	<button id="submit">Submit</button>
-	<button id="clear">Clear</button>
-	<form id="upload-widget" method="post" action="http://api.makingdevs.com/InvoiceDetail.groovy" class="dropzone" enctype="multipart/form-data">
-	  <div class="fallback">
-	    <input name="file" type="file" />
-	    
-	  </div>
-	</form>
-	
-	
-
+	<form action="http://api.makingdevs.com/InvoiceDetail.groovy" method="get" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
+ 
+    <div class="dropzone-previews"></div>
+ 
+    <div class="fallback">
+       <input name="file" type="file" multiple/>
+    </div>
+ 
+ 	</form>
+ 
+ <button type="submit" id="submit-all" class="btn btn-primary btn-xs">Enviar archivo</button>
 	</body>
 </html>
